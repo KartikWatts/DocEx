@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML>
+<HEAD>
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<A name=1></a>Sample PDF Document<br>
+Robert Maron<br>
+Grzegorz Grudzi´nski<br>
+February 20, 1999<br>
+<hr>
+<A name=2></a>2<br>
+<hr>
+<A name=3></a><b>Contents</b><br>
+<b>1</b><br>
+<b>Template</b><br>
+<b>5</b><br>
+1.1<br>
+How to compile a .tex file to a .pdf file . . . . . . . . . . . . .<br>
+5<br>
+1.1.1<br>
+Tools . . . . . . . . . . . . . . . . . . . . . . . . . . . .<br>
+5<br>
+1.1.2<br>
+How to use the tools . . . . . . . . . . . . . . . . . . . .<br>
+5<br>
+1.2<br>
+How to write a document . . . . . . . . . . . . . . . . . . . . . .<br>
+6<br>
+1.2.1<br>
+The main document . . . . . . . . . . . . . . . . . . . . .<br>
+6<br>
+1.2.2<br>
+Chapters<br>
+. . . . . . . . . . . . . . . . . . . . . . . . . .<br>
+6<br>
+1.2.3<br>
+Spell-checking . . . . . . . . . . . . . . . . . . . . . . .<br>
+6<br>
+1.3<br>
+LATEX and pdfLATEX capabilities . . . . . . . . . . . . . . . . . . .<br>
+7<br>
+1.3.1<br>
+Overview . . . . . . . . . . . . . . . . . . . . . . . . . .<br>
+7<br>
+1.3.2<br>
+LATEX . . . . . . . . . . . . . . . . . . . . . . . . . . . .<br>
+7<br>
+1.3.3<br>
+pdfLATEX . . . . . . . . . . . . . . . . . . . . . . . . . .<br>
+7<br>
+1.3.4<br>
+Examples . . . . . . . . . . . . . . . . . . . . . . . . . .<br>
+7<br>
+3<br>
+<hr>
+<A name=4></a>4<br>
+CONTENTS<br>
+<hr>
+<A name=5></a><b>Chapter 1</b><br>
+<b>Template</b><br>
+<b>1.1</b><br>
+<b>How to compile a .tex file to a .pdf file</b><br>
+<b>1.1.1</b><br>
+<b>Tools</b><br>
+To process the files you (may) need:<br>
+· pdflatex (for example from tetex package  0.9-6, which you can<br>
+get from Red Hat 5.2);<br>
+· acroread (a PDF viewer, available from http://www.adobe.com/);<br>
+· ghostscript  5.10 (for example from Red Hat Contrib) and ghostview<br>
+or gv (from RedHat Linux);<br>
+· efax package could be useful, if you plan to fax documents.<br>
+<b>1.1.2</b><br>
+<b>How to use the tools</b><br>
+Follow these steps:<br>
+1. put all source .tex files in one directory, then chdir to the directory (or put<br>
+some of them in the LATEXsearch path -- if you know how to do this);<br>
+2. run "pdflatex file.tex" on the main file of the document three times<br>
+(three -- to prepare valid table of contents);<br>
+3. to see or print the result use acroread (unfortunately some versions of<br>
+acroread may produce PostScript which is too complex), or<br>
+5<br>
+<hr>
+<A name=6></a>6<br>
+CHAPTER 1. TEMPLATE<br>
+4. run ghostscript: "gv file.pdf" to display or:<br>
+"gs -dNOPAUSE -sDEVICE=pswrite -q -dBATCH -sOutputFile=file.ps file.pdf"<br>to produce a PostScript file;<br>
+5. run "fax send phone-number file.ps" as root to send a fax, or -- if you<br>
+know how to do this -- modify the fax script to be able to fax .pdf files directly<br>(you have to insert "|%PDF*" somewhere. . . ).<br>
+<b>1.2</b><br>
+<b>How to write a document</b><br>
+<b>1.2.1</b><br>
+<b>The main document</b><br>
+Choose the name of the document, say document. Copy template.tex to<br>document.tex, then edit it, change the title, the authors and set proper in-<br>clude(s) for all the chapters.<br>
+<b>1.2.2</b><br>
+<b>Chapters</b><br>
+Each chapter should be included in the main document as a separate file. You can<br>choose any name for the file, but we suggest adding a suffix to the name of the<br>main file. For our example we use the file name document_chapter1.tex.<br>
+First, copy template_chapter.tex to document_chapter1.tex<br>
+and add the line<br>
+\include{document_chapter1}<br>
+in the document.tex, then edit document_chapter1.tex, change the<br>
+chapter title and edit the body of the chapter appropriately.<br>
+<b>1.2.3</b><br>
+<b>Spell-checking</b><br>
+<i>Do </i>use a spell-checker, please!<br>
+You may also want to check grammar, style and so on. Actually you should<br>
+do it (if you have enough spare time). But you <i>must </i>check spelling!<br>
+You can use the ispell package for this, from within emacs, or from the<br>
+command line:<br>
+ispell -t document_chapter1.tex<br>
+<hr>
+<A name=7></a>1.3. LATEX AND PDFLATEX CAPABILITIES<br>
+7<br>
+<b>1.3</b><br>
+<b>LATEX and pdfLATEX capabilities</b><br>
+<b>1.3.1</b><br>
+<b>Overview</b><br>
+First you edit your source .tex file. In LATEX you compile it using the latex<br>command to a .dvi file (which stands for device-independent). The .dvi file<br>can be converted to any device-dependent format you like using an appropriate<br>driver, for example dvips.<br>
+When producing .pdf files you should use pdflatex, which produces di-<br>
+rectly .pdf files out of .tex sources. Note that in the .tex file you may need<br>to use some PDF specific packages.<br>
+For viewing .tex files use your favourite text editor, for viewing .dvi files<br>
+under X Window System use xdvi command, .ps files can be viewed with gv<br>(or ghostview) and .pdf files with acroread, gv or xpdf.<br>
+<b>1.3.2</b><br>
+<b>LATEX</b><br>
+A lot of examples can be found in this document.<br>
+You should also print<br>
+· doc/latex/general/latex2e.dvi and<br>
+· doc/latex/general/lshort2e.dvi<br>
+from your tetex distribution (usually in<br>
+· /usr/share/texmf or<br>
+· /usr/lib/texmf/texmf).<br>
+<b>1.3.3</b><br>
+<b>pdfLATEX</b><br>
+Consult doc/pdftex/manual.pdf from your tetex distribution for more<br>details. Very useful informations can be found in the hyperref and graphics<br>package manuals:<br>
+· doc/latex/hyperref/manual.pdf and<br>
+· doc/latex/graphics/grfguide.dvi.<br>
+<b>1.3.4</b><br>
+<b>Examples</b><br>
+<b>References</b><br>
+MIMUW<br>
+<hr>
+<A name=8></a>8<br>
+CHAPTER 1. TEMPLATE<br>
+<b>Hyperlinks</b><br>
+This is a target.<br>And this is a link.<br>
+<b>Dashes, etc.</b><br>
+There are three kinds of horizontal dash:<br>
+· - (use inside words; for example "home-page", "X-rated")<br>
+· ­ (use this one between numbers; for example "pages 2­22")<br>
+· -- (use this one as a sentence separator -- like here)<br>
+<b>National characters</b><br>
+· ó, é, í, . . .<br>
+· è, à, ì, . . .<br>
+· ô, ê, . . .<br>
+· õ, ñ, . . .<br>
+· ö, ë, . . .<br>
+· z<br>
+· a, e<br>
+· l, ø, ß<br>
+There are other ways to do this, see the documentation for inputenc pack-<br>
+age.<br>
+<b>Reserved characters</b><br>
+Some characters have some special meaning, thus cannot be entered in the usual<br>way.<br>
+· $ &amp; % # _ { }<br>
+· \<br>
+· ~ ^<br>
+<hr>
+<A name=9></a>1.3. LATEX AND PDFLATEX CAPABILITIES<br>
+9<br>
+<b>Math</b><br>
+· 12, 12n, . . .<br>
+· i1, i2n, . . .<br>
+· 1, 2n , . . .<br>
+2<br>
+2-3<br>
+· , , , , . . .<br>
+· , , , =, , , . . .<br>
+<br>
+·<br>
+2, . . .<br>
+· 2 + 2, . . .<br>
+For more examples and symbols see chapter 3 of lshort2e.dvi.<br>
+<b>Fonts</b><br>
+· Roman<br>
+· <i>Emphasis</i><br>
+· Medium weight -- the default<br>
+· <b>Boldface</b><br>
+· Upright<br>
+· Slanted<br>
+· Sans serif<br>
+· SMALL CAPS<br>
+· Typewriter<br>
+· and sizes:<br>
+<b>­ </b>tiny<br>
+<b>­ </b>scriptsize<br>
+<b>­ </b>footnotesize<br>
+<b>­ </b>small<br>
+<b>­ </b>normalsize<br>
+<hr>
+<A name=10></a>10<br>
+CHAPTER 1. TEMPLATE<br>
+<b>­ </b>large<br>
+<b>­ </b>Large<br>
+<b>­ </b>LARGE<br>
+<b>­ </b>huge<br>
+<b>­ </b>Huge<br>
+<hr>
+<A name="outline"></a><h1>Document Outline</h1>
+<ul><li>Template
+<ul><li>How to compile a texttt {.tex} file to a texttt {.pdf} file
+<ul><li>Tools
+<li>How to use the tools
+</ul><li>How to write a document
+<ul><li>The main document
+<li>Chapters
+<li>Spell-checking
+</ul><li>LaTeX {} and pdfLaTeX {} capabilities
+<ul><li>Overview
+<li>LaTeX 
+<li>pdfLaTeX 
+<li>Examples
+</ul></ul></ul><hr>
+</BODY>
+</HTML>
